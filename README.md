@@ -1,4 +1,4 @@
-# complete
+# Simple project planner
 
 ## Project setup
 ```
