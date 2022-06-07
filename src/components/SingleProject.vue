@@ -1,10 +1,10 @@
 <template>
 	<div class="project">
-		<div class="actions" @click="isShow = !isShow">
-			<h3>{{ project.title }}</h3>
+		<div class="actions">
+			<h3 @click="isShow = !isShow">{{ project.title }}</h3>
 			<div class="icon">
 				<span class="material-icons">edit</span>
-				<span class="material-icons">delete</span>
+				<span @click="deleteProject(project?.id)" class="material-icons">delete</span>
 				<span class="material-icons">done</span>
 			</div>
 		</div>
@@ -18,10 +18,19 @@
 	export default {
 		data() {
 			return {
-				isShow: false
+				isShow: false,
+				url: "http://localhost:3000/projects/"
 			}
 		},
-		props: ["project"]
+		methods: {
+			deleteProject(id) {
+				fetch(this.url+id, { method: "DELETE" })
+					.then(() => {
+						this.$emit("deleteProject", id)
+					})
+			},
+		},
+		props: ["project"],
 	}
 </script>
 
