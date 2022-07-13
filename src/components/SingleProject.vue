@@ -1,11 +1,11 @@
 <template>
-	<div class="project">
+	<div class="project" :class="{ complete: project.complete }">
 		<div class="actions">
 			<h3 @click="isShow = !isShow">{{ project.title }}</h3>
 			<div class="icon">
 				<span class="material-icons">edit</span>
-				<span @click="deleteProject(project?.id)" class="material-icons">delete</span>
-				<span class="material-icons">done</span>
+				<span @click="deleteProject" class="material-icons">delete</span>
+				<span @click="toggleComplete" class="material-icons tick">done</span>
 			</div>
 		</div>
 		<div v-if="isShow">
@@ -15,20 +15,32 @@
 </template>
 
 <script>
+/* eslint-disable */ 
 	export default {
 		data() {
 			return {
 				isShow: false,
-				url: "http://localhost:3000/projects/"
+				url: "http://localhost:3000/projects/" + this.project.id
 			}
 		},
 		methods: {
-			deleteProject(id) {
-				fetch(this.url+id, { method: "DELETE" })
+			deleteProject() {
+				fetch(this.url, { method: "DELETE" })
 					.then(() => {
-						this.$emit("deleteProject", id)
+						this.$emit("deleteProject",  this.project.id)
 					})
 			},
+			toggleComplete() {
+				fetch(this.url, { 
+					method: "PATCH",
+					headers: { 'Content-Type': 'application/json'},
+					body: JSON.stringify({ complete: !this.project.complete })
+				}).then(() => {
+					this.$emit("completeProject", this.project.id)
+				}).catch((err) => {
+					console.log(err)
+				})
+			}
 		},
 		props: ["project"],
 	}
@@ -43,6 +55,13 @@
 		border-radius: 4px;
 		box-shadow: 1px 2px 3px rgba(0,0,0,0.05);
 		border-left: 4px solid #e90074;
+	}
+	.project.complete {
+		border-left: 4px solid #00ce89;
+	}
+
+	.project.complete .tick{
+		color: #00ce89;
 	}
 
 	h3 {

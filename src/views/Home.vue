@@ -2,13 +2,18 @@
   <div class="home">
     <div v-if="projects.length">
       <div v-for="project in projects" :key="project.id">
-        <SingleProject @deleteProject="deleteProject($event)" :project="project" />
+        <SingleProject 
+        @deleteProject="deleteProject($event)" 
+        :project="project" 
+        @completeProject="completeProject($event)"
+        />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+/* eslint-disable */ 
 // @ is an alias to /src
 import SingleProject from "../components/SingleProject.vue"
 
@@ -22,6 +27,10 @@ export default {
   methods: {
     deleteProject (id) {
       this.projects = this.projects.filter((val) => val.id !== id)
+    },
+    completeProject(id) {
+      let currentProject = this.projects.find((val) => val.id === id)
+      currentProject.complete = !currentProject.complete
     }
   },
   components: { SingleProject },
