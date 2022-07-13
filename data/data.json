@@ -11,6 +11,18 @@
       "title": "Create new homepage banner",
       "details": "Lorem ipssum",
       "complete": true
+    },
+    {
+      "title": "Add project",
+      "details": "new project",
+      "complete": false,
+      "id": 5
+    },
+    {
+      "title": "Design website",
+      "details": "Add new web design",
+      "complete": false,
+      "id": 6
     }
   ]
 }
