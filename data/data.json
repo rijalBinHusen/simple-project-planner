@@ -15,7 +15,7 @@
     {
       "title": "Add project",
       "details": "new project",
-      "complete": false,
+      "complete": true,
       "id": 5
     },
     {
