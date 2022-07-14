@@ -18,6 +18,21 @@ export default {
             url: 'http://localhost:3000/projects/'+this.id
         }
     },
+    methods: {
+        handleSubmit() {
+				fetch(this.url, { 
+					method: "PATCH",
+					headers: { 'Content-Type': 'application/json'},
+					body: JSON.stringify({
+                        title: this.title,
+                        details: this.details
+                    })
+				}).then(() => {
+					this.$router.push("/")
+				}).catch((err) => {
+					console.log(err)
+				})
+			}},
     mounted() {
         fetch(this.url)
             .then((res) => res.json())
