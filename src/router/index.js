@@ -1,7 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
-import AddProject from "../components/AddProject.vue";
-import EditProject from "../components/EditProject.vue";
+import AddProject from "../views/AddProject.vue";
+import EditProject from "../views/EditProject.vue";
 
 const routes = [
   {

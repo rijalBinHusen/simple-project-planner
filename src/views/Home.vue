@@ -1,5 +1,6 @@
 <template>
   <div class="home">
+    <FilterNav @filterChange="current = $event" :currentFilter="current" />
     <div v-if="projects.length">
       <div v-for="project in projects" :key="project.id">
         <SingleProject 
@@ -16,12 +17,14 @@
 /* eslint-disable */ 
 // @ is an alias to /src
 import SingleProject from "../components/SingleProject.vue"
+import FilterNav from "../components/FilterNav.vue"
 
 export default {
   name: "Home",
   data() {
     return {
-      projects: []
+      projects: [],
+      current: 'all',
     }
   },
   methods: {
@@ -33,7 +36,7 @@ export default {
       currentProject.complete = !currentProject.complete
     }
   },
-  components: { SingleProject },
+  components: { SingleProject, FilterNav },
   mounted() {
     fetch("http://localhost:3000/projects")
       .then(res => res.json())
